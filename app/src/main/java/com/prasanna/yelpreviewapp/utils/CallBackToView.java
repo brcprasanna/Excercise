@@ -1,7 +1,5 @@
 package com.prasanna.yelpreviewapp.utils;
 
-import okhttp3.Response;
-
 /**
  * Interface to callback to activity from service layer
  */

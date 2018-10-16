@@ -1,7 +1,7 @@
 package com.prasanna.yelpreviewapp.utils;
 
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
-import com.prasanna.yelpreviewapp.model.CategoryResponse;
+import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 
 import java.io.IOException;
 

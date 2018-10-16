@@ -1,7 +1,7 @@
 package com.prasanna.yelpreviewapp.utils;
 
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
-import com.prasanna.yelpreviewapp.model.CategoryResponse;
+import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +21,7 @@ public class NetworkManager {
             .readTimeout(5000, TimeUnit.SECONDS)
             .build();
 
-    public void doGetCategoryRequest(String filter, Class<CategoryResponse> categoryResponseClass, final CallBackToView mCallback) throws IOException {
+    public void doGetCategoryRequest(String filter, final Class<CategoryResponse> categoryResponseClass, final CallBackToView mCallback) throws IOException {
 
         Request request = new Request.Builder()
                 .url(AppConstants.CATEGORY_URL)

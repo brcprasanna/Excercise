@@ -50,24 +50,28 @@
     <EditText
         android:id="@+id/edtPriceRangeFrom"
         android:layout_width="103dp"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="min"
+        android:maxLength="6"
+        android:maxLines="1"
         android:inputType="numberDecimal"
-        android:text="From"
         app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeTo"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
     <EditText
         android:id="@+id/edtPriceRangeTo"
         android:layout_width="103dp"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="max"
+        android:maxLength="6"
+        android:maxLines="1"
         android:inputType="numberDecimal"
-        android:text="To"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 

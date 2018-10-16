@@ -1,5 +1,6 @@
 package com.prasanna.yelpreviewapp.utils;
 
+import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.CategoryResponse;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class NetworkManager {
-    private CallBackToView mCallback;
+    //private CallBackToView mCallback;
 
     final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(5000, TimeUnit.SECONDS)
@@ -24,6 +25,26 @@ public class NetworkManager {
 
         Request request = new Request.Builder()
                 .url(AppConstants.CATEGORY_URL)
+                .addHeader("Authorization", "Bearer " + AppConstants.API_KEY)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mCallback.onFailure(e.toString());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mCallback.onSuccess(response);
+            }
+        });
+    }
+
+    public void doGetBusinessSearchRequest(String filter, Class<BusinessSearchResponse> businessSearchResponseClass, final CallBackToView mCallback) {
+        Request request = new Request.Builder()
+                .url(AppConstants.BUSINESS_SEARCH_URL)
                 .addHeader("Authorization", "Bearer " + AppConstants.API_KEY)
                 .build();
 

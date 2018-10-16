@@ -1,5 +1,6 @@
 package com.prasanna.yelpreviewapp.utils;
 
+import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.CategoryResponse;
 
 import java.io.IOException;
@@ -32,6 +33,10 @@ public class DataManager {
 
     public void getCategories(String filter, final CallBackToView callBackToView) throws IOException {
         networkManager.doGetCategoryRequest(filter, CategoryResponse.class, callBackToView);
+    }
+
+    public void getBusinessSearch(String filter, final CallBackToView callBackToView) throws IOException {
+        networkManager.doGetBusinessSearchRequest(filter, BusinessSearchResponse.class, callBackToView);
     }
 }
     

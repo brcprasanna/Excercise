@@ -3,11 +3,13 @@ package com.prasanna.yelpreviewapp.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.prasanna.yelpreviewapp.R;
+import com.prasanna.yelpreviewapp.adapter.MainListViewAdapter;
 import com.prasanna.yelpreviewapp.model.Business;
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.Category;
@@ -26,14 +28,19 @@ public class SearchActivity extends AppCompatActivity {
     private StringBuilder sbTestList;
 
 
-    private SearchView searchViewMain;
-    private SearchView searchViewCategory;
+    private SearchView mSearchViewMain;
+    private SearchView mSearchViewCategory;
+
+    private ListView mListViewMain;
 
     private SearchViewModel mSearchViewModel;
     private CategoryResponse mCategoryResponse;
     private BusinessSearchResponse mBusinessResponse;
 
     private List<Category> mCategoryList;
+    private List<Business> mBusinessList;
+
+    private MainListViewAdapter mMainListViewAdapter;
 
 
     @Override
@@ -44,9 +51,15 @@ public class SearchActivity extends AppCompatActivity {
         tvTest = findViewById(R.id.tvTest);
         sbTestList = new StringBuilder();
 
-        searchViewMain = findViewById(R.id.searchViewMain);
-        searchViewCategory = findViewById(R.id.searchViewCategory);
+        mSearchViewMain = findViewById(R.id.searchViewMain);
+        mSearchViewCategory = findViewById(R.id.searchViewCategory);
 
+        mListViewMain = findViewById(R.id.listViewMain);
+        mListViewMain.setVisibility(View.GONE);
+
+        mBusinessList = new ArrayList<>();
+        mMainListViewAdapter = new MainListViewAdapter(this, R.layout.list_item_main, mBusinessList);
+        mListViewMain.setAdapter(mMainListViewAdapter);
 
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
 
@@ -67,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
             tvTest.setText(sbTestList);
         });
 
-        searchViewCategory.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchViewCategory.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 //not required as of now
@@ -99,7 +112,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        searchViewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchViewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -109,6 +122,11 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.length() > 0) {
+                    mListViewMain.setVisibility(View.VISIBLE);
+                } else {
+                    mListViewMain.setVisibility(View.GONE);
+                }
                 sbTestList = new StringBuilder();
                 mSearchViewModel.initBusiness(newText);
 
@@ -121,10 +139,11 @@ public class SearchActivity extends AppCompatActivity {
                                 sbTestList.append(business.getName());
                             }
                         }
+                        mBusinessList = businessList;
                     }
                     tvTest.setText(sbTestList);
+                    mMainListViewAdapter.setData(mBusinessList);
                 });
-
                 return false;
             }
 

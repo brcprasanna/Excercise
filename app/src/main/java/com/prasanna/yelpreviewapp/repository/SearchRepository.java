@@ -2,7 +2,6 @@ package com.prasanna.yelpreviewapp.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;

@@ -85,7 +85,7 @@
     <ListView
         android:id="@+id/listViewCategory"
         android:layout_width="350dp"
-        android:layout_height="220dp"
+        android:layout_height="310dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

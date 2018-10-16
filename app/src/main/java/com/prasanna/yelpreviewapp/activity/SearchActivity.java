@@ -1,4 +1,4 @@
-package com.prasanna.yelpreviewapp;
+package com.prasanna.yelpreviewapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.SearchView;
 
 import com.google.gson.Gson;
+import com.prasanna.yelpreviewapp.R;
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 import com.prasanna.yelpreviewapp.utils.CallBackToView;
@@ -14,7 +15,7 @@ import com.prasanna.yelpreviewapp.utils.DataManager;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private EditText edtCategory;
     private SearchView searchView;

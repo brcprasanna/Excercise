@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -52,9 +53,25 @@ public class SearchActivity extends AppCompatActivity {
 
         mListViewMain = findViewById(R.id.listViewMain);
         mListViewMain.setVisibility(View.GONE);
+        mListViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Business business = (Business) mListViewMain.getItemAtPosition(i);
+                mSearchViewMain.setQuery(business.getName(), false);
+                mListViewMain.setVisibility(View.GONE);
+            }
+        });
 
         mListViewCategory = findViewById(R.id.listViewCategory);
         mListViewCategory.setVisibility(View.GONE);
+        mListViewCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Category category = (Category) mListViewCategory.getItemAtPosition(i);
+                mSearchViewCategory.setQuery(category.getTitle(), false);
+                mListViewCategory.setVisibility(View.GONE);
+            }
+        });
 
         mBusinessList = new ArrayList<>();
         mMainListViewAdapter = new MainListViewAdapter(this, R.layout.list_item_main, mBusinessList);

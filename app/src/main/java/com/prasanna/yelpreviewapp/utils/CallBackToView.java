@@ -11,7 +11,7 @@ public interface CallBackToView {
      *
      * @param responseModel
      */
-    void onSuccess(Response responseModel);
+    void onSuccess(String responseModel);
 
     /**
      * Will be called on Error callback

@@ -37,7 +37,7 @@ public class NetworkManager {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mCallback.onSuccess(response);
+                mCallback.onSuccess(response.body().string());
             }
         });
     }
@@ -57,7 +57,7 @@ public class NetworkManager {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mCallback.onSuccess(response);
+                mCallback.onSuccess(response.body().string());
             }
         });
     }

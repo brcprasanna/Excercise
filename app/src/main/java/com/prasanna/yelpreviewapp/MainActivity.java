@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             DataManager.getInstance().getBusinessSearch(filterText, new CallBackToView() {
                 @Override
-                public void onSuccess(final Response responseModel) {
+                public void onSuccess(final String responseModel) {
                     Log.i("Prasanna", responseModel.toString());
                     runOnUiThread(new Runnable() {
                         @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             DataManager.getInstance().getCategories(filterText, new CallBackToView() {
                 @Override
-                public void onSuccess(final Response responseModel) {
+                public void onSuccess(final String responseModel) {
                     Log.i("Prasanna", responseModel.toString());
                     runOnUiThread(new Runnable() {
                         @Override

@@ -32,27 +32,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
-    <TextView
-        android:id="@+id/tvCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:text="Category"
-        app:layout_constraintEnd_toStartOf="@+id/searchViewCategory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceRange" />
-
     <SearchView
         android:id="@+id/searchViewCategory"
-        android:layout_width="192dp"
-        android:layout_height="wrap_content"
+        android:layout_width="345dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:ems="10"
+        app:layout_constraintBottom_toTopOf="@+id/listViewCategory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPriceRangeFrom" />
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPriceRangeFrom"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/edtPriceRangeFrom"
@@ -61,7 +54,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:text="From"
         app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeTo"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
@@ -73,32 +66,32 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:text="To"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
-    <TextView
-        android:id="@+id/tvTest"
-        android:layout_width="179dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewCategory" />
-
-    <ListView
+   <ListView
         android:id="@+id/listViewMain"
         android:layout_width="350dp"
         android:layout_height="440dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/listViewCategory"
+        android:layout_width="350dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

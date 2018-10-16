@@ -1,7 +1,7 @@
 
 package com.prasanna.yelpreviewapp.model.category;
 
-import com.prasanna.yelpreviewapp.model.Category;
+import com.prasanna.yelpreviewapp.model.category.Category;
 
 import java.util.HashMap;
 import java.util.List;

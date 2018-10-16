@@ -9,33 +9,33 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.prasanna.yelpreviewapp.R;
-import com.prasanna.yelpreviewapp.model.Business;
+import com.prasanna.yelpreviewapp.model.category.Category;
 
 import java.util.List;
 
-public class MainListViewAdapter extends ArrayAdapter<Business> {
+public class CategoryListViewAdapter extends ArrayAdapter<Category> {
 
-    private List<Business> businessList;
+    private List<Category> categoryList;
 
-    public MainListViewAdapter(Context context, int resource, List<Business> businessList) {
-        super(context, resource, businessList);
-        this.businessList = businessList;
+    public CategoryListViewAdapter(Context context, int resource, List<Category> categoryList) {
+        super(context, resource, categoryList);
+        this.categoryList = categoryList;
     }
 
     public int getCount() {
-        if (businessList != null) {
-            return businessList.size();
+        if (categoryList != null) {
+            return categoryList.size();
         } else {
             return 0;
         }
     }
 
-    public Business getItem(int position) {
-        return businessList.get(position);
+    public Category getItem(int position) {
+        return categoryList.get(position);
     }
 
     public long getItemId(int position) {
-        return businessList.get(position).hashCode();
+        return categoryList.get(position).hashCode();
     }
 
     @NonNull
@@ -49,19 +49,19 @@ public class MainListViewAdapter extends ArrayAdapter<Business> {
             view = layoutInflater.inflate(R.layout.list_item_main, null);
         }
 
-        final Business business = getItem(position);
-        if (business != null) {
+        final Category category = getItem(position);
+        if (category != null) {
             TextView name = view.findViewById(R.id.business);
             if (name != null) {
-                name.setText(business.getName());
+                name.setText(category.getTitle());
             }
         }
 
         return view;
     }
 
-    public void setData(List<Business> businessList) {
-        this.businessList = businessList;
+    public void setData(List<Category> categoryList) {
+        this.categoryList = categoryList;
         notifyDataSetChanged();
     }
 }

@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 import com.prasanna.yelpreviewapp.utils.AppConstants;
 import com.prasanna.yelpreviewapp.utils.CallBackToView;
@@ -41,6 +42,33 @@ public class SearchRepository {
                     CategoryResponse categoryResponse = new Gson().fromJson(responseModel, CategoryResponse.class);
                     response.setStatus(AppConstants.ResponseStatus.RESPONSE_SUCCESS);
                     response.setData(categoryResponse);
+                    liveData.postValue(response);
+                }
+
+                @Override
+                public void onFailure(final String errorMsg) {
+                    response.setStatus(AppConstants.ResponseStatus.RESPONSE_ERROR);
+                    response.setErrorMsg(errorMsg);
+                    liveData.postValue(response);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return liveData;
+    }
+
+    public LiveData<RepositoryResponse<BusinessSearchResponse>> getBusiness(String filterText) {
+        final MutableLiveData<RepositoryResponse<BusinessSearchResponse>> liveData = new MutableLiveData();
+        RepositoryResponse<BusinessSearchResponse> response = new RepositoryResponse<>();
+        //Search View
+        try {
+            DataManager.getInstance().getBusinessSearch(filterText, new CallBackToView() {
+                @Override
+                public void onSuccess(final String responseModel) {
+                    BusinessSearchResponse businessSearchResponse = new Gson().fromJson(responseModel, BusinessSearchResponse.class);
+                    response.setStatus(AppConstants.ResponseStatus.RESPONSE_SUCCESS);
+                    response.setData(businessSearchResponse);
                     liveData.postValue(response);
                 }
 

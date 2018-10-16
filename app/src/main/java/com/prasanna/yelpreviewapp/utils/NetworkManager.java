@@ -44,7 +44,7 @@ public class NetworkManager {
 
     public void doGetBusinessSearchRequest(String filter, Class<BusinessSearchResponse> businessSearchResponseClass, final CallBackToView mCallback) {
         Request request = new Request.Builder()
-                .url(AppConstants.BUSINESS_SEARCH_URL)
+                .url(AppConstants.BUSINESS_SEARCH_URL+"&term="+filter)
                 .addHeader("Authorization", "Bearer " + AppConstants.API_KEY)
                 .build();
 

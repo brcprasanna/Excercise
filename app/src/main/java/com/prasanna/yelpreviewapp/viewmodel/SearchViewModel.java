@@ -3,6 +3,7 @@ package com.prasanna.yelpreviewapp.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 import com.prasanna.yelpreviewapp.repository.RepositoryResponse;
 import com.prasanna.yelpreviewapp.repository.SearchRepository;
@@ -14,12 +15,23 @@ import com.prasanna.yelpreviewapp.repository.SearchRepository;
 public class SearchViewModel extends ViewModel {
 
     private LiveData<RepositoryResponse<CategoryResponse>> mCategoryResponseLiveData;
+    private LiveData<RepositoryResponse<BusinessSearchResponse>> mBusinessResponseLiveData;
 
-    public void init(String filterText) {
+    public void initCategory(String filterText) {
         mCategoryResponseLiveData = SearchRepository.getInstance().getCategories(filterText);
     }
 
-    public LiveData<RepositoryResponse<CategoryResponse>> getmCategoryResponseLiveData() {
+    public LiveData<RepositoryResponse<CategoryResponse>> getCategoryResponseLiveData() {
         return mCategoryResponseLiveData;
     }
+
+    public void initBusiness(String filterText) {
+        mBusinessResponseLiveData = SearchRepository.getInstance().getBusiness(filterText);
+    }
+
+    public LiveData<RepositoryResponse<BusinessSearchResponse>> getBusinessResponseLiveData() {
+        return mBusinessResponseLiveData;
+    }
+
+
 }

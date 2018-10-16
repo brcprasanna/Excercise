@@ -3,33 +3,30 @@ package com.prasanna.yelpreviewapp.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.prasanna.yelpreviewapp.R;
+import com.prasanna.yelpreviewapp.model.Business;
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.Category;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
-import com.prasanna.yelpreviewapp.utils.CallBackToView;
-import com.prasanna.yelpreviewapp.utils.DataManager;
 import com.prasanna.yelpreviewapp.viewmodel.SearchViewModel;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
     private EditText edtCategory;
-    private TextView tvTestCategory;
-    private StringBuilder sbCategoryList;
+    private TextView tvTest;
+    private StringBuilder sbTestList;
 
     private SearchView searchView;
 
     private SearchViewModel mSearchViewModel;
     private CategoryResponse mCategoryResponse;
+    private BusinessSearchResponse mBusinessResponse;
 
 
     @Override
@@ -38,61 +35,57 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         edtCategory = findViewById(R.id.edtCategory);
-        tvTestCategory = findViewById(R.id.tvTestCategory);
-        sbCategoryList = new StringBuilder();
+        tvTest = findViewById(R.id.tvTestCategory);
+        sbTestList = new StringBuilder();
 
         searchView = findViewById(R.id.searchView);
 
 
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-        mSearchViewModel.init("");
+        mSearchViewModel.initCategory("");
 
-        mSearchViewModel.getmCategoryResponseLiveData().observe(this, searchRepositoryCategoryResponse-> {
+        mSearchViewModel.getCategoryResponseLiveData().observe(this, searchRepositoryCategoryResponse -> {
             mCategoryResponse = searchRepositoryCategoryResponse.getData();
-            //edtCategory.setText(mCategoryResponse.getCategories().get(0).toString());
             if (mCategoryResponse != null) {
                 List<Category> categoryList = mCategoryResponse.getCategories();
                 for (Category category : categoryList) {
-                    sbCategoryList.append(category.getTitle());
+                    sbTestList.append(category.getTitle());
                 }
             }
-            tvTestCategory.setText(sbCategoryList);
+            tvTest.setText(sbTestList);
         });
 
         String filterText = "food";
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-        //Search View
-        try {
-            DataManager.getInstance().getBusinessSearch(filterText, new CallBackToView() {
-                @Override
-                public void onSuccess(final String responseModel) {
-                    Log.i("Prasanna", responseModel);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //should be shown in a list, so that user can select an item from that list
-                            BusinessSearchResponse businessSearchResponse = new Gson().fromJson(responseModel, BusinessSearchResponse.class);
-                            //searchView.setQuery(responseModel, false);
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //start list activity here
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                sbTestList = new StringBuilder();
+                mSearchViewModel.initBusiness(newText);
+
+                mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {
+                    mBusinessResponse = businessSearchResponseRepositoryResponse.getData();
+                    if (mBusinessResponse != null) {
+                        List<Business> businessList = mBusinessResponse.getBusinesses();
+                        for (Business business : businessList) {
+                            sbTestList.append(business.getName());
                         }
-                    });
+                    }
+                    tvTest.setText(sbTestList);
+                });
 
-                }
+                return false;
+            }
 
-                @Override
-                public void onFailure(final String errorMsg) {
-                    Log.i("Prasanna", errorMsg);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //should be shown in a list, so that user can select an item from that list
-                            searchView.setQuery(errorMsg, false);
-                        }
-                    });
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        });
+
     }
 }

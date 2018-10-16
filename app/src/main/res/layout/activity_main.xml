@@ -6,58 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="374dp"
         android:layout_height="38dp"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvPriceRange"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         android:text="Price Range"
-        app:layout_constraintEnd_toStartOf="@+id/editText3"
+        app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeFrom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="Category"
-        app:layout_constraintEnd_toStartOf="@+id/editText"
+        app:layout_constraintEnd_toStartOf="@+id/edtCategory"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceRange" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="138dp"
-        tools:layout_editor_absoluteY="139dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPriceRangeFrom" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/edtPriceRangeFrom"
         android:layout_width="103dp"
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
@@ -65,18 +61,19 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="From"
-        app:layout_constraintEnd_toStartOf="@+id/editText4"
+        app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeTo"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/edtPriceRangeTo"
         android:layout_width="103dp"
         android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="To"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:layout_editor_absoluteX="242dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
 </android.support.constraint.ConstraintLayout>

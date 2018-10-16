@@ -1,31 +1,28 @@
 package com.prasanna.yelpreviewapp;
 
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.EditText;
 
-import com.prasanna.yelpreviewapp.utils.AppConstants;
 import com.prasanna.yelpreviewapp.utils.CallBackToView;
 import com.prasanna.yelpreviewapp.utils.DataManager;
-import com.prasanna.yelpreviewapp.utils.NetworkManager;
 
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tvTest;
+    private EditText edtCategory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvTest = findViewById(R.id.test);
+        edtCategory = findViewById(R.id.edtCategory);
+
         String filterText = "food";
         try {
             DataManager.getInstance().getCategories(filterText, new CallBackToView() {
@@ -35,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvTest.setText(responseModel.toString());
+                            //should be shown in a list, so that user can select an item from that list
+                            edtCategory.setText(responseModel.toString());
                         }
                     });
 
@@ -47,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvTest.setText(errorMsg);
+                            //should be shown in a list, so that user can select an item from that list
+                            edtCategory.setText(errorMsg);
                         }
                     });
                 }

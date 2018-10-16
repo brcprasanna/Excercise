@@ -17,8 +17,8 @@ public class SearchViewModel extends ViewModel {
     private LiveData<RepositoryResponse<CategoryResponse>> mCategoryResponseLiveData;
     private LiveData<RepositoryResponse<BusinessSearchResponse>> mBusinessResponseLiveData;
 
-    public void initCategory(String filterText) {
-        mCategoryResponseLiveData = SearchRepository.getInstance().getCategories(filterText);
+    public void initCategory() {
+        mCategoryResponseLiveData = SearchRepository.getInstance().getCategories();
     }
 
     public LiveData<RepositoryResponse<CategoryResponse>> getCategoryResponseLiveData() {

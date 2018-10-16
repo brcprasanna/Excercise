@@ -31,8 +31,8 @@ public class DataManager {
         networkManager = new NetworkManager();
     }
 
-    public void getCategories(String filter, final CallBackToView callBackToView) throws IOException {
-        networkManager.doGetCategoryRequest(filter, CategoryResponse.class, callBackToView);
+    public void getCategories(final CallBackToView callBackToView) throws IOException {
+        networkManager.doGetCategoryRequest(CategoryResponse.class, callBackToView);
     }
 
     public void getBusinessSearch(String filter, final CallBackToView callBackToView) throws IOException {

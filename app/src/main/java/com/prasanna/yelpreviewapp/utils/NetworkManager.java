@@ -21,7 +21,7 @@ public class NetworkManager {
             .readTimeout(5000, TimeUnit.SECONDS)
             .build();
 
-    public void doGetCategoryRequest(String filter, final Class<CategoryResponse> categoryResponseClass, final CallBackToView mCallback) throws IOException {
+    public void doGetCategoryRequest(final Class<CategoryResponse> categoryResponseClass, final CallBackToView mCallback) throws IOException {
 
         Request request = new Request.Builder()
                 .url(AppConstants.CATEGORY_URL)

@@ -31,12 +31,12 @@ public class SearchRepository {
 
     }
 
-    public LiveData<RepositoryResponse<CategoryResponse>> getCategories(String filterText) {
+    public LiveData<RepositoryResponse<CategoryResponse>> getCategories() {
         final MutableLiveData<RepositoryResponse<CategoryResponse>> liveData = new MutableLiveData();
         RepositoryResponse<CategoryResponse> response = new RepositoryResponse<>();
         //Category
         try {
-            DataManager.getInstance().getCategories(filterText, new CallBackToView() {
+            DataManager.getInstance().getCategories(new CallBackToView() {
                 @Override
                 public void onSuccess(final String responseModel) {
                     CategoryResponse categoryResponse = new Gson().fromJson(responseModel, CategoryResponse.class);

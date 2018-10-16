@@ -14,19 +14,26 @@ import com.prasanna.yelpreviewapp.model.Category;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 import com.prasanna.yelpreviewapp.viewmodel.SearchViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private EditText edtCategory;
+    //for testing, will be removed later
     private TextView tvTest;
+    //for testing, will be removed later
     private StringBuilder sbTestList;
 
-    private SearchView searchView;
+
+    private SearchView searchViewMain;
+    private SearchView searchViewCategory;
 
     private SearchViewModel mSearchViewModel;
     private CategoryResponse mCategoryResponse;
     private BusinessSearchResponse mBusinessResponse;
+
+    private List<Category> mCategoryList;
 
 
     @Override
@@ -34,30 +41,65 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        edtCategory = findViewById(R.id.edtCategory);
-        tvTest = findViewById(R.id.tvTestCategory);
+        tvTest = findViewById(R.id.tvTest);
         sbTestList = new StringBuilder();
 
-        searchView = findViewById(R.id.searchView);
+        searchViewMain = findViewById(R.id.searchViewMain);
+        searchViewCategory = findViewById(R.id.searchViewCategory);
 
 
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-        mSearchViewModel.initCategory("");
 
-        mSearchViewModel.getCategoryResponseLiveData().observe(this, searchRepositoryCategoryResponse -> {
+        sbTestList = new StringBuilder();
+        mSearchViewModel.initCategory();
+
+        mSearchViewModel.getCategoryResponseLiveData().observe(SearchActivity.this, searchRepositoryCategoryResponse -> {
             mCategoryResponse = searchRepositoryCategoryResponse.getData();
             if (mCategoryResponse != null) {
                 List<Category> categoryList = mCategoryResponse.getCategories();
-                for (Category category : categoryList) {
-                    sbTestList.append(category.getTitle());
+                if (categoryList != null) {
+                    for (Category category : categoryList) {
+                        sbTestList.append(category.getTitle());
+                    }
                 }
+                mCategoryList = categoryList;
             }
             tvTest.setText(sbTestList);
         });
 
-        String filterText = "food";
+        searchViewCategory.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                //not required as of now
+                return false;
+            }
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //as there is no end point to fiter with search text, we have to store it in our local list, filter
+                //and show it for the entered text
+                sbTestList = new StringBuilder();
+                List<Category> filterList =
+                        //Create a Stream from the personList
+                        mCategoryList.stream().
+                                //filter the element to select only those matching with text
+                                        filter(p -> p.getTitle().contains(newText)).
+                                //put those filtered elements into a new List.
+                                        collect(Collectors.toList());
+
+                if (filterList != null) {
+                    for (Category category : filterList) {
+                        sbTestList.append(category.getTitle());
+                    }
+                }
+
+                tvTest.setText(sbTestList);
+
+                return false;
+            }
+        });
+
+        searchViewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -74,8 +116,10 @@ public class SearchActivity extends AppCompatActivity {
                     mBusinessResponse = businessSearchResponseRepositoryResponse.getData();
                     if (mBusinessResponse != null) {
                         List<Business> businessList = mBusinessResponse.getBusinesses();
-                        for (Business business : businessList) {
-                            sbTestList.append(business.getName());
+                        if (businessList != null) {
+                            for (Business business : businessList) {
+                                sbTestList.append(business.getName());
+                            }
                         }
                     }
                     tvTest.setText(sbTestList);

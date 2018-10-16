@@ -7,7 +7,7 @@
     tools:context=".activity.SearchActivity">
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/searchViewMain"
         android:layout_width="374dp"
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
@@ -27,7 +27,7 @@
         android:text="Price Range"
         app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeFrom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
     <TextView
         android:id="@+id/tvCategory"
@@ -37,18 +37,17 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="Category"
-        app:layout_constraintEnd_toStartOf="@+id/edtCategory"
+        app:layout_constraintEnd_toStartOf="@+id/searchViewCategory"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPriceRange" />
 
-    <EditText
-        android:id="@+id/edtCategory"
-        android:layout_width="wrap_content"
+    <SearchView
+        android:id="@+id/searchViewCategory"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="28dp"
         android:ems="10"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPriceRangeFrom" />
 
@@ -62,7 +61,7 @@
         android:inputType="textPersonName"
         android:text="From"
         app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeTo"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
     <EditText
         android:id="@+id/edtPriceRangeTo"
@@ -74,18 +73,18 @@
         android:inputType="textPersonName"
         android:text="To"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
     <TextView
-        android:id="@+id/tvTestCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tvTest"
+        android:layout_width="179dp"
+        android:layout_height="57dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="160dp"
         android:layout_marginTop="12dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewCategory" />
 
 </android.support.constraint.ConstraintLayout>

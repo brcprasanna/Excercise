@@ -1,11 +1,11 @@
 package com.prasanna.yelpreviewapp.viewmodel;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import static com.prasanna.yelpreviewapp.utils.AppConstants.EMPTY;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created by Prasanna V on 2018-10-17.

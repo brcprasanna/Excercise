@@ -2,7 +2,7 @@ package com.prasanna.yelpreviewapp.repository;
 
 import com.prasanna.yelpreviewapp.utils.AppConstants;
 
-public class RepositoryResponse<T> {
+public class RepositoryResponseBase<T> {
     private T data;
     private AppConstants.ResponseStatus status;
     private String errorMsg;

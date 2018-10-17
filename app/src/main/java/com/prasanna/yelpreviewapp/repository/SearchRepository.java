@@ -30,9 +30,9 @@ public class SearchRepository {
 
     }
 
-    public LiveData<RepositoryResponse<CategoryResponse>> getCategories() {
-        final MutableLiveData<RepositoryResponse<CategoryResponse>> liveData = new MutableLiveData();
-        RepositoryResponse<CategoryResponse> response = new RepositoryResponse<>();
+    public LiveData<RepositoryResponseBase<CategoryResponse>> getCategories() {
+        final MutableLiveData<RepositoryResponseBase<CategoryResponse>> liveData = new MutableLiveData();
+        RepositoryResponseBase<CategoryResponse> response = new RepositoryResponseBase<>();
         //Category
         try {
             DataManager.getInstance().getCategories(new CallBackToView() {
@@ -57,9 +57,9 @@ public class SearchRepository {
         return liveData;
     }
 
-    public LiveData<RepositoryResponse<BusinessSearchResponse>> getBusiness(String filterText, String priceRange, String categories) {
-        final MutableLiveData<RepositoryResponse<BusinessSearchResponse>> liveData = new MutableLiveData();
-        RepositoryResponse<BusinessSearchResponse> response = new RepositoryResponse<>();
+    public LiveData<RepositoryResponseBase<BusinessSearchResponse>> getBusiness(String filterText, String priceRange, String categories) {
+        final MutableLiveData<RepositoryResponseBase<BusinessSearchResponse>> liveData = new MutableLiveData();
+        RepositoryResponseBase<BusinessSearchResponse> response = new RepositoryResponseBase<>();
         //Search View
         try {
             DataManager.getInstance().getBusinessSearch(filterText, priceRange, categories,  new CallBackToView() {

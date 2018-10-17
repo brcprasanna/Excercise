@@ -147,11 +147,7 @@ public class SearchActivity extends AppCompatActivity{
                     mListViewMain.setVisibility(View.GONE);
                 }
 
-                String spinnerRangeText = mSpinnerRange.getSelectedItem().toString();
-
-                if (spinnerRangeText.equalsIgnoreCase(getString(R.string.all))) {
-                    spinnerRangeText = "";
-                }
+                String spinnerRangeText = mSearchViewModel.getSpinnerRangeText(mSpinnerRange.getSelectedItem().toString(), getString(R.string.all));
 
                 if (mSearchViewCategory.getQuery().length() > 0) {
                     mSearchViewModel.initBusiness(newText, spinnerRangeText, mSearchViewCategory.getQuery().toString());

@@ -147,10 +147,16 @@ public class SearchActivity extends AppCompatActivity{
                     mListViewMain.setVisibility(View.GONE);
                 }
 
+                String spinnerRangeText = mSpinnerRange.getSelectedItem().toString();
+
+                if (spinnerRangeText.equalsIgnoreCase(getString(R.string.all))) {
+                    spinnerRangeText = "";
+                }
+
                 if (mSearchViewCategory.getQuery().length() > 0) {
-                    mSearchViewModel.initBusiness(newText, mSpinnerRange.getSelectedItem().toString(), mSearchViewCategory.getQuery().toString());
+                    mSearchViewModel.initBusiness(newText, spinnerRangeText, mSearchViewCategory.getQuery().toString());
                 } else {
-                    mSearchViewModel.initBusiness(newText, mSpinnerRange.getSelectedItem().toString(), null);
+                    mSearchViewModel.initBusiness(newText, spinnerRangeText, null);
                 }
 
                 mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {

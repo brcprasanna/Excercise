@@ -3,4 +3,5 @@
     <string name="hint_main_search">Search Business</string>
     <string name="hint_category_search">Search Category</string>
     <string name="invalid_price_range">Invalid Price Range</string>
+    <string name="all">All</string>
 </resources>

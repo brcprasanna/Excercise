@@ -47,7 +47,7 @@ public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapte
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            tvItem = (TextView) itemView.findViewById(R.id.tv_item);
+            tvItem = itemView.findViewById(R.id.tv_item);
         }
     }
 }

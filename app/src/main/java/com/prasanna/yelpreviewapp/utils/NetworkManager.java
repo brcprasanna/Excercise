@@ -12,6 +12,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.prasanna.yelpreviewapp.utils.AppConstants.EMPTY;
+
 public class NetworkManager {
     //private CallBackToView mCallback;
 
@@ -43,9 +45,9 @@ public class NetworkManager {
     }
 
     public void doGetBusinessSearchRequest(String filter, String priceRange, String categories, Class<BusinessSearchResponse> businessSearchResponseClass, final CallBackToView mCallback) {
-        String url = "";
+        String url;
 
-        if (categories != null) {
+        if (categories.trim().equals(EMPTY)) {
             url = AppConstants.BUSINESS_SEARCH_URL+"&term="+filter+"&price="+priceRange;
         } else {
             url = AppConstants.BUSINESS_SEARCH_URL+"&term="+filter+"&price="+priceRange+"&categories="+categories;

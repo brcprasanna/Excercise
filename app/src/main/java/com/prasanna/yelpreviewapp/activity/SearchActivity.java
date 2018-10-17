@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SearchActivity extends AppCompatActivity{
+public class SearchActivity extends AppCompatActivity {
 
     private SearchView mSearchViewMain;
     private SearchView mSearchViewCategory;
@@ -53,6 +53,14 @@ public class SearchActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initViews();
+        setCategoryData();
+        setCategoryQueryListener();
+        setMainSearchQueryListener();
+    }
+
+    private void initViews() {
+        mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
 
         mSearchViewMain = findViewById(R.id.searchViewMain);
         mSearchViewMain.setQueryHint(getString(R.string.hint_main_search));
@@ -91,21 +99,46 @@ public class SearchActivity extends AppCompatActivity{
         mCategoryList = new ArrayList<>();
         mCategoryListViewAdapter = new CategoryListViewAdapter(this, R.layout.list_item_main, mCategoryList);
         mListViewCategory.setAdapter(mCategoryListViewAdapter);
+    }
 
-        mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+    private void setMainSearchQueryListener() {
+        mSearchViewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-        mSearchViewModel.initCategory();
-
-        mSearchViewModel.getCategoryResponseLiveData().observe(SearchActivity.this, searchRepositoryCategoryResponse -> {
-            mCategoryResponse = searchRepositoryCategoryResponse.getData();
-            if (mCategoryResponse != null) {
-                List<Category> categoryList = mCategoryResponse.getCategories();
-                if (categoryList != null) {
-                    mCategoryList = categoryList;
-                }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //start list activity here
+                Intent intentBusinessActivity = new Intent(SearchActivity.this, BusinessListActivity.class);
+                startActivity(intentBusinessActivity);
+                return false;
             }
-        });
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.length() > 0) {
+                    mListViewMain.setVisibility(View.VISIBLE);
+                } else {
+                    mListViewMain.setVisibility(View.GONE);
+                }
+
+                String spinnerRangeText = mSearchViewModel.getSpinnerRangeText(mSpinnerRange.getSelectedItem().toString(), getString(R.string.all));
+
+                mSearchViewModel.initBusiness(newText, spinnerRangeText, mSearchViewCategory.getQuery().toString());
+
+                mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {
+                    mBusinessResponse = businessSearchResponseRepositoryResponse.getData();
+                    if (mBusinessResponse != null) {
+                        List<Business> businessList = mBusinessResponse.getBusinesses();
+                        mBusinessList = businessList;
+                    }
+                    mMainListViewAdapter.setData(mBusinessList);
+                });
+                return false;
+            }
+
+        });
+    }
+
+    private void setCategoryQueryListener() {
         mSearchViewCategory.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -128,46 +161,20 @@ public class SearchActivity extends AppCompatActivity{
                 return false;
             }
         });
+    }
 
-        mSearchViewMain.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    private void setCategoryData() {
+        mSearchViewModel.initCategory();
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //start list activity here
-                Intent intentBusinessActivity = new Intent(SearchActivity.this, BusinessListActivity.class);
-                startActivity(intentBusinessActivity);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 0) {
-                    mListViewMain.setVisibility(View.VISIBLE);
-                } else {
-                    mListViewMain.setVisibility(View.GONE);
+        mSearchViewModel.getCategoryResponseLiveData().observe(SearchActivity.this, searchRepositoryCategoryResponse -> {
+            mCategoryResponse = searchRepositoryCategoryResponse.getData();
+            if (mCategoryResponse != null) {
+                List<Category> categoryList = mCategoryResponse.getCategories();
+                if (categoryList != null) {
+                    mCategoryList = categoryList;
                 }
-
-                String spinnerRangeText = mSearchViewModel.getSpinnerRangeText(mSpinnerRange.getSelectedItem().toString(), getString(R.string.all));
-
-                if (mSearchViewCategory.getQuery().length() > 0) {
-                    mSearchViewModel.initBusiness(newText, spinnerRangeText, mSearchViewCategory.getQuery().toString());
-                } else {
-                    mSearchViewModel.initBusiness(newText, spinnerRangeText, null);
-                }
-
-                mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {
-                    mBusinessResponse = businessSearchResponseRepositoryResponse.getData();
-                    if (mBusinessResponse != null) {
-                        List<Business> businessList = mBusinessResponse.getBusinesses();
-                        mBusinessList = businessList;
-                    }
-                    mMainListViewAdapter.setData(mBusinessList);
-                });
-                return false;
             }
-
         });
-
     }
 
 }

@@ -50,6 +50,7 @@ public class NetworkManager {
         } else {
             url = AppConstants.BUSINESS_SEARCH_URL+"&term="+filter+"&price="+priceRange+"&categories="+categories;
         }
+
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization", "Bearer " + AppConstants.API_KEY)

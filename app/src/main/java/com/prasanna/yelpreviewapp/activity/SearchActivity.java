@@ -135,10 +135,11 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (mPriceRangeEditText.getText().length() > 0) {
-                    mSearchViewModel.validatePriceRange(mPriceRangeEditText.getText().toString());
-                    Toast.makeText(SearchActivity.this, getString(R.string.invalid_price_range), Toast.LENGTH_SHORT).show();
-                    //mPriceRangeEditText.requestFocus();
-                    return false;
+                    if (!mSearchViewModel.validatePriceRange(mPriceRangeEditText.getText().toString())) {
+                        Toast.makeText(SearchActivity.this, getString(R.string.invalid_price_range), Toast.LENGTH_SHORT).show();
+                        //mPriceRangeEditText.requestFocus();
+                        return false;
+                    }
                 }
                 if (newText.length() > 0) {
                     mListViewMain.setVisibility(View.VISIBLE);

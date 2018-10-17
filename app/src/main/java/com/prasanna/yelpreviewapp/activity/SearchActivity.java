@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.prasanna.yelpreviewapp.R;
@@ -41,7 +42,7 @@ public class SearchActivity extends AppCompatActivity {
     private MainListViewAdapter mMainListViewAdapter;
     private CategoryListViewAdapter mCategoryListViewAdapter;
 
-    private EditText mPriceRangeEditText;
+    private Spinner mSpinnerRange;
 
 
     @Override
@@ -77,7 +78,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        mPriceRangeEditText = findViewById(R.id.edtPriceRange);
+        mSpinnerRange = findViewById(R.id.spinnerRange);
 
         mBusinessList = new ArrayList<>();
         mMainListViewAdapter = new MainListViewAdapter(this, R.layout.list_item_main, mBusinessList);
@@ -134,12 +135,6 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (mPriceRangeEditText.getText().length() > 0) {
-                    if (!mSearchViewModel.validatePriceRange(mPriceRangeEditText.getText().toString())) {
-                        Toast.makeText(SearchActivity.this, getString(R.string.invalid_price_range), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                }
                 if (newText.length() > 0) {
                     mListViewMain.setVisibility(View.VISIBLE);
                 } else {
@@ -147,9 +142,9 @@ public class SearchActivity extends AppCompatActivity {
                 }
 
                 if (mSearchViewCategory.getQuery().length() > 0) {
-                    mSearchViewModel.initBusiness(newText, mPriceRangeEditText.getText().toString(), mSearchViewCategory.getQuery().toString());
+                    mSearchViewModel.initBusiness(newText, mSpinnerRange.getSelectedItem().toString(), mSearchViewCategory.getQuery().toString());
                 } else {
-                    mSearchViewModel.initBusiness(newText, mPriceRangeEditText.getText().toString(), null);
+                    mSearchViewModel.initBusiness(newText, mSpinnerRange.getSelectedItem().toString(), null);
                 }
 
                 mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {

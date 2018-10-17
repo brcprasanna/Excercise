@@ -28,7 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
         android:text="Price Range"
-        app:layout_constraintEnd_toStartOf="@+id/edtPriceRange"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerRange"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
@@ -45,11 +45,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPriceRange"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRange"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/edtPriceRange"
+    <Spinner
+        android:id="@+id/spinnerRange"
         android:layout_width="103dp"
         android:layout_height="45dp"
         android:layout_marginEnd="156dp"
@@ -59,30 +59,31 @@
         android:inputType="numberDecimal"
         android:maxLength="1"
         android:maxLines="1"
+        android:entries="@array/items"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
-   <ListView
-        android:id="@+id/listViewMain"
-        android:layout_width="350dp"
-        android:layout_height="440dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ListView
-        android:id="@+id/listViewCategory"
-        android:layout_width="350dp"
-        android:layout_height="310dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"/>
+         android:id="@+id/listViewMain"
+         android:layout_width="350dp"
+         android:layout_height="440dp"
+         android:layout_marginBottom="16dp"
+         android:layout_marginEnd="8dp"
+         android:layout_marginStart="8dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent" />
+
+     <ListView
+         android:id="@+id/listViewCategory"
+         android:layout_width="350dp"
+         android:layout_height="310dp"
+         android:layout_marginBottom="16dp"
+         android:layout_marginEnd="8dp"
+         android:layout_marginStart="8dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

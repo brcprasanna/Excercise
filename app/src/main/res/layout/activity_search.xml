@@ -26,9 +26,10 @@
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:text="Price Range"
-        app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeFrom"
+        app:layout_constraintEnd_toStartOf="@+id/edtPriceRange"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 
@@ -44,34 +45,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPriceRangeFrom"
+        app:layout_constraintTop_toBottomOf="@+id/edtPriceRange"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/edtPriceRangeFrom"
+        android:id="@+id/edtPriceRange"
         android:layout_width="103dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
-        android:hint="min"
-        android:maxLength="6"
-        android:maxLines="1"
+        android:hint="(1 to 4)"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/edtPriceRangeTo"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
-
-    <EditText
-        android:id="@+id/edtPriceRangeTo"
-        android:layout_width="103dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="max"
-        android:maxLength="6"
+        android:maxLength="1"
         android:maxLines="1"
-        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewMain" />
 

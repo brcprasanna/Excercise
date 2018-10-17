@@ -137,7 +137,6 @@ public class SearchActivity extends AppCompatActivity {
                 if (mPriceRangeEditText.getText().length() > 0) {
                     if (!mSearchViewModel.validatePriceRange(mPriceRangeEditText.getText().toString())) {
                         Toast.makeText(SearchActivity.this, getString(R.string.invalid_price_range), Toast.LENGTH_SHORT).show();
-                        //mPriceRangeEditText.requestFocus();
                         return false;
                     }
                 }

@@ -19,15 +19,15 @@ import java.io.IOException;
 public class SearchRepository {
     private static SearchRepository sSearchRepositoryInstance;
 
+    private SearchRepository() {
+
+    }
+
     public static SearchRepository getInstance() {
         if (sSearchRepositoryInstance == null) {
             sSearchRepositoryInstance = new SearchRepository();
         }
         return sSearchRepositoryInstance;
-    }
-
-    private SearchRepository() {
-
     }
 
     public LiveData<RepositoryResponseBase<CategoryResponse>> getCategories() {
@@ -62,7 +62,7 @@ public class SearchRepository {
         RepositoryResponseBase<BusinessSearchResponse> response = new RepositoryResponseBase<>();
         //Search View
         try {
-            DataManager.getInstance().getBusinessSearch(filterText, priceRange, categories,  new CallBackToView() {
+            DataManager.getInstance().getBusinessSearch(filterText, priceRange, categories, new CallBackToView() {
                 @Override
                 public void onSuccess(final String responseModel) {
                     BusinessSearchResponse businessSearchResponse = new Gson().fromJson(responseModel, BusinessSearchResponse.class);

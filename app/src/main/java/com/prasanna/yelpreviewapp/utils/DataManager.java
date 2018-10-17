@@ -25,7 +25,6 @@ public class DataManager {
     /**
      * Class initialization method
      * ATTENTION: call this function at application level prior to other service call
-     *
      */
     public void init() {
         networkManager = new NetworkManager();

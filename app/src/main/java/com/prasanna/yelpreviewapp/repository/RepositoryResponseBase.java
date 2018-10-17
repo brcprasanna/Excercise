@@ -7,20 +7,20 @@ public class RepositoryResponseBase<T> {
     private AppConstants.ResponseStatus status;
     private String errorMsg;
 
-    public void setData(T data) {
-        this.data = data;
-    }
-
     public T getData() {
         return data;
     }
 
-    public void setStatus(AppConstants.ResponseStatus status) {
-        this.status = status;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public AppConstants.ResponseStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(AppConstants.ResponseStatus status) {
+        this.status = status;
     }
 
     public String getErrorMsg() {

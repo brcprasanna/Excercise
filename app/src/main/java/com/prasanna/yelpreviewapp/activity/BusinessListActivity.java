@@ -28,14 +28,6 @@ public class BusinessListActivity extends AppCompatActivity {
     private List<String> items;
     private int page;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_business_list);
-        this.items = createItems();
-        initViews();
-        initRecyclerView();
-    }
-
     private static List<String> createItems() {
         List<String> itemsLocal = new LinkedList<>();
         for (int i = 0; i < NUMBER_OF_ITEMS; i++) {
@@ -43,6 +35,15 @@ public class BusinessListActivity extends AppCompatActivity {
             itemsLocal.add("Item #".concat(prefix).concat(String.valueOf(i)));
         }
         return itemsLocal;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_business_list);
+        this.items = createItems();
+        initViews();
+        initRecyclerView();
     }
 
     private void initViews() {
@@ -60,7 +61,8 @@ public class BusinessListActivity extends AppCompatActivity {
 
     private InfiniteScrollListener createInfiniteScrollListener() {
         return new InfiniteScrollListener(MAX_ITEMS_PER_REQUEST, layoutManager) {
-            @Override public void onScrolledToEnd(final int firstVisibleItemPosition) {
+            @Override
+            public void onScrolledToEnd(final int firstVisibleItemPosition) {
                 simulateLoading();
                 int start = ++page * MAX_ITEMS_PER_REQUEST;
                 final boolean allItemsLoaded = start >= items.size();
@@ -90,11 +92,13 @@ public class BusinessListActivity extends AppCompatActivity {
      */
     private void simulateLoading() {
         new AsyncTask<Void, Void, Void>() {
-            @Override protected void onPreExecute() {
+            @Override
+            protected void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
             }
 
-            @Override protected Void doInBackground(Void... params) {
+            @Override
+            protected Void doInBackground(Void... params) {
                 try {
                     Thread.sleep(SIMULATED_LOADING_TIME_IN_MS);
                 } catch (InterruptedException e) {
@@ -103,7 +107,8 @@ public class BusinessListActivity extends AppCompatActivity {
                 return null;
             }
 
-            @Override protected void onPostExecute(Void param) {
+            @Override
+            protected void onPostExecute(Void param) {
                 progressBar.setVisibility(View.GONE);
             }
         }.execute();

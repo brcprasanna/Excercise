@@ -1,4 +1,3 @@
-
 package com.prasanna.yelpreviewapp.model;
 
 import java.util.List;

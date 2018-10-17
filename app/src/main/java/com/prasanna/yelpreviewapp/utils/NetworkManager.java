@@ -48,9 +48,9 @@ public class NetworkManager {
         String url;
 
         if (categories.trim().equals(EMPTY)) {
-            url = AppConstants.BUSINESS_SEARCH_URL+"&term="+filter+"&price="+priceRange;
+            url = AppConstants.BUSINESS_SEARCH_URL + "&term=" + filter + "&price=" + priceRange;
         } else {
-            url = AppConstants.BUSINESS_SEARCH_URL+"&term="+filter+"&price="+priceRange+"&categories="+categories;
+            url = AppConstants.BUSINESS_SEARCH_URL + "&term=" + filter + "&price=" + priceRange + "&categories=" + categories;
         }
 
         Request request = new Request.Builder()

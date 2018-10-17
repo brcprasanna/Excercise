@@ -1,4 +1,3 @@
-
 package com.prasanna.yelpreviewapp.model.category;
 
 import java.util.HashMap;

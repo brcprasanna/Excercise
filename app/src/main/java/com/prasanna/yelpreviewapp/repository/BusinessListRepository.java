@@ -16,45 +16,18 @@ import java.io.IOException;
  * Created by Prasanna V on 2018-10-16.
  */
 
-public class SearchRepository {
-    private static SearchRepository sSearchRepositoryInstance;
+public class BusinessListRepository {
+    private static BusinessListRepository sBusinessListRepository;
 
-    private SearchRepository() {
+    private BusinessListRepository() {
 
     }
 
-    public static SearchRepository getInstance() {
-        if (sSearchRepositoryInstance == null) {
-            sSearchRepositoryInstance = new SearchRepository();
+    public static BusinessListRepository getInstance() {
+        if (sBusinessListRepository == null) {
+            sBusinessListRepository = new BusinessListRepository();
         }
-        return sSearchRepositoryInstance;
-    }
-
-    public LiveData<RepositoryResponseBase<CategoryResponse>> getCategories() {
-        final MutableLiveData<RepositoryResponseBase<CategoryResponse>> liveData = new MutableLiveData();
-        RepositoryResponseBase<CategoryResponse> response = new RepositoryResponseBase<>();
-        //Category
-        try {
-            DataManager.getInstance().getCategories(new CallBackToView() {
-                @Override
-                public void onSuccess(final String responseModel) {
-                    CategoryResponse categoryResponse = new Gson().fromJson(responseModel, CategoryResponse.class);
-                    response.setStatus(AppConstants.ResponseStatus.RESPONSE_SUCCESS);
-                    response.setData(categoryResponse);
-                    liveData.postValue(response);
-                }
-
-                @Override
-                public void onFailure(final String errorMsg) {
-                    response.setStatus(AppConstants.ResponseStatus.RESPONSE_ERROR);
-                    response.setErrorMsg(errorMsg);
-                    liveData.postValue(response);
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return liveData;
+        return sBusinessListRepository;
     }
 
     public LiveData<RepositoryResponseBase<BusinessSearchResponse>> getBusiness(String filterText, String priceRange, String categories) {
@@ -84,4 +57,30 @@ public class SearchRepository {
         return liveData;
     }
 
+    public LiveData<RepositoryResponseBase<BusinessSearchResponse>> getBusinessWithLimitAndOffset(String filterText, String priceRange, String categories, int limit, int offset) {
+        final MutableLiveData<RepositoryResponseBase<BusinessSearchResponse>> liveData = new MutableLiveData();
+        RepositoryResponseBase<BusinessSearchResponse> response = new RepositoryResponseBase<>();
+        //Search View
+        try {
+            DataManager.getInstance().getBusinessSearch(filterText, priceRange, categories, limit, offset, new CallBackToView() {
+                @Override
+                public void onSuccess(final String responseModel) {
+                    BusinessSearchResponse businessSearchResponse = new Gson().fromJson(responseModel, BusinessSearchResponse.class);
+                    response.setStatus(AppConstants.ResponseStatus.RESPONSE_SUCCESS);
+                    response.setData(businessSearchResponse);
+                    liveData.postValue(response);
+                }
+
+                @Override
+                public void onFailure(final String errorMsg) {
+                    response.setStatus(AppConstants.ResponseStatus.RESPONSE_ERROR);
+                    response.setErrorMsg(errorMsg);
+                    liveData.postValue(response);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return liveData;
+    }
 }

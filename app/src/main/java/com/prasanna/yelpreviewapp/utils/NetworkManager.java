@@ -71,4 +71,32 @@ public class NetworkManager {
             }
         });
     }
+
+    public void doGetBusinessSearchRequest(String filter, String priceRange, String categories, int limit, int offset, Class<BusinessSearchResponse> businessSearchResponseClass, final CallBackToView mCallback) {
+        String url;
+
+        if (categories.trim().equals(EMPTY)) {
+            url = AppConstants.BUSINESS_SEARCH_URL + "&term=" + filter + "&price=" + priceRange + "&limit=" + limit + "&offset=" + offset;
+        } else {
+            url = AppConstants.BUSINESS_SEARCH_URL + "&term=" + filter + "&price=" + priceRange + "&categories=" + categories+ "&limit=" + limit + "&offset=" + offset;
+        }
+
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + AppConstants.API_KEY)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mCallback.onFailure(e.toString());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mCallback.onSuccess(response.body().string());
+            }
+        });
+    }
 }

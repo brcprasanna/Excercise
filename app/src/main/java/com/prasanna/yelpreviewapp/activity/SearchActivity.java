@@ -3,6 +3,7 @@ package com.prasanna.yelpreviewapp.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,8 +18,10 @@ import com.prasanna.yelpreviewapp.model.Business;
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.category.Category;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
+import com.prasanna.yelpreviewapp.utils.AppConstants;
 import com.prasanna.yelpreviewapp.viewmodel.SearchViewModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +45,8 @@ public class SearchActivity extends AppCompatActivity {
     private CategoryListViewAdapter mCategoryListViewAdapter;
 
     private Spinner mSpinnerRange;
-
+    private String mSpinnerRangeText;
+    private String mNewSearchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +106,11 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //start list activity here
+                mListViewMain.setVisibility(View.GONE);
                 Intent intentBusinessActivity = new Intent(SearchActivity.this, BusinessListActivity.class);
+                intentBusinessActivity.putExtra(AppConstants.INTENT_DATA_SEARCH_TEXT, mNewSearchText);
+                intentBusinessActivity.putExtra(AppConstants.INTENT_DATA_PRICE_RANGE_TEXT, mSpinnerRangeText);
+                intentBusinessActivity.putExtra(AppConstants.INTENT_DATA_CATEGORY_TEXT, mSearchViewCategory.getQuery().toString());
                 startActivity(intentBusinessActivity);
                 return false;
             }
@@ -115,9 +123,10 @@ public class SearchActivity extends AppCompatActivity {
                     mListViewMain.setVisibility(View.GONE);
                 }
 
-                String spinnerRangeText = mSearchViewModel.getSpinnerRangeText(mSpinnerRange.getSelectedItem().toString(), getString(R.string.all));
+                mNewSearchText = newText;
+                mSpinnerRangeText = mSearchViewModel.getSpinnerRangeText(mSpinnerRange.getSelectedItem().toString(), getString(R.string.all));
 
-                mSearchViewModel.initBusiness(newText, spinnerRangeText, mSearchViewCategory.getQuery().toString());
+                mSearchViewModel.initBusiness(newText, mSpinnerRangeText, mSearchViewCategory.getQuery().toString());
 
                 mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {
                     mBusinessResponse = businessSearchResponseRepositoryResponse.getData();

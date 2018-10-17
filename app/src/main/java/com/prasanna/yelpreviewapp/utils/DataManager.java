@@ -37,5 +37,9 @@ public class DataManager {
     public void getBusinessSearch(String filter, String priceRange, String categories, final CallBackToView callBackToView) throws IOException {
         networkManager.doGetBusinessSearchRequest(filter, priceRange, categories, BusinessSearchResponse.class, callBackToView);
     }
+
+    public void getBusinessSearch(String filter, String priceRange, String categories, int limit, int offset, final CallBackToView callBackToView) throws IOException {
+        networkManager.doGetBusinessSearchRequest(filter, priceRange, categories, limit, offset, BusinessSearchResponse.class, callBackToView);
+    }
 }
     

@@ -79,11 +79,4 @@ public class SearchViewModelTest {
         assertNotEquals(result, "All");
     }
 
-
-
-
-
-
-
-
 }

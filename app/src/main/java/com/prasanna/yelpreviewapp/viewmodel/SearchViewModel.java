@@ -9,7 +9,7 @@ import com.prasanna.yelpreviewapp.repository.RepositoryResponse;
 import com.prasanna.yelpreviewapp.repository.SearchRepository;
 
 /**
- * Created by rampreethajasmi on 2018-10-16.
+ * Created by Prasanna V on 2018-10-16.
  */
 
 public class SearchViewModel extends ViewModel {

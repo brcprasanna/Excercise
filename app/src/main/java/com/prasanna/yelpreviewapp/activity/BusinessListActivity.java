@@ -50,10 +50,10 @@ public class BusinessListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
 
-        mViewmodel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT, 1);
+        mViewmodel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT, 0);
 
-        mViewmodel.getBusinessResponseLiveData().observe(BusinessListActivity.this, businessSearchResponseRepositoryResponse -> {
-            mBusinessResponse = businessSearchResponseRepositoryResponse.getData();
+        mViewmodel.getBusinessResponseLiveData().observe(BusinessListActivity.this, businessSearchResponseRepositoryResponseBase -> {
+            mBusinessResponse = businessSearchResponseRepositoryResponseBase.getData();
             if (mBusinessResponse != null) {
                 List<Business> businessList = mBusinessResponse.getBusinesses();
                 items = businessList;
@@ -64,14 +64,7 @@ public class BusinessListActivity extends AppCompatActivity {
             }
 
             int curSize = mAdapter.getItemCount();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mAdapter.notifyItemRangeInserted(curSize, items.size() - 1);
-                }
-            });
-
-
+            mAdapter.notifyItemRangeInserted(curSize, items.size() - 1);
         });
 
 

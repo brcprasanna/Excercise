@@ -4,11 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
-import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 import com.prasanna.yelpreviewapp.repository.BusinessListRepository;
 import com.prasanna.yelpreviewapp.repository.RepositoryResponseBase;
-import com.prasanna.yelpreviewapp.repository.SearchRepository;
-import com.prasanna.yelpreviewapp.utils.AppConstants;
 
 /**
  * Created by Prasanna V on 2018-10-16.

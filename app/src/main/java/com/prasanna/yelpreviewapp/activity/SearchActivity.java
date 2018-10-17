@@ -3,7 +3,6 @@ package com.prasanna.yelpreviewapp.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,6 @@ import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 import com.prasanna.yelpreviewapp.utils.AppConstants;
 import com.prasanna.yelpreviewapp.viewmodel.SearchViewModel;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

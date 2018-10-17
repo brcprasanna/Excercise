@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ProgressBar;
 
-import com.github.pwittchen.infinitescroll.library.InfiniteScrollListener;
 import com.prasanna.yelpreviewapp.R;
 import com.prasanna.yelpreviewapp.adapter.BusinessListAdapter;
 import com.prasanna.yelpreviewapp.model.Business;
@@ -17,7 +15,6 @@ import com.prasanna.yelpreviewapp.utils.AppConstants;
 import com.prasanna.yelpreviewapp.utils.EndlessRecyclerViewScrollListener;
 import com.prasanna.yelpreviewapp.viewmodel.BusinessListViewModel;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class BusinessListActivity extends AppCompatActivity {
@@ -53,7 +50,7 @@ public class BusinessListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
 
-        mViewmodel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT,  1);
+        mViewmodel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT, 1);
 
         mViewmodel.getBusinessResponseLiveData().observe(BusinessListActivity.this, businessSearchResponseRepositoryResponse -> {
             mBusinessResponse = businessSearchResponseRepositoryResponse.getData();

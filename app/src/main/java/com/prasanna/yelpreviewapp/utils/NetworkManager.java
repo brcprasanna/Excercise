@@ -78,7 +78,7 @@ public class NetworkManager {
         if (categories.trim().equals(EMPTY)) {
             url = AppConstants.BUSINESS_SEARCH_URL + "&term=" + filter + "&price=" + priceRange + "&limit=" + limit + "&offset=" + offset;
         } else {
-            url = AppConstants.BUSINESS_SEARCH_URL + "&term=" + filter + "&price=" + priceRange + "&categories=" + categories+ "&limit=" + limit + "&offset=" + offset;
+            url = AppConstants.BUSINESS_SEARCH_URL + "&term=" + filter + "&price=" + priceRange + "&categories=" + categories + "&limit=" + limit + "&offset=" + offset;
         }
 
         Request request = new Request.Builder()

@@ -1,11 +1,9 @@
 package com.prasanna.yelpreviewapp.model;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.List;
 
-public class Business implements Serializable{
+public class Business implements Serializable {
 
     private String id;
     private String alias;

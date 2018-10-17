@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
-import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
 import com.prasanna.yelpreviewapp.utils.AppConstants;
 import com.prasanna.yelpreviewapp.utils.CallBackToView;
 import com.prasanna.yelpreviewapp.utils.DataManager;

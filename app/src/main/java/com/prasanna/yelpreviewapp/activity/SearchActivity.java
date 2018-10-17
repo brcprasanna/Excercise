@@ -145,7 +145,12 @@ public class SearchActivity extends AppCompatActivity {
                 } else {
                     mListViewMain.setVisibility(View.GONE);
                 }
-                mSearchViewModel.initBusiness(newText);
+
+                if (mSearchViewCategory.getQuery().length() > 0) {
+                    mSearchViewModel.initBusiness(newText, mPriceRangeEditText.getText().toString(), mSearchViewCategory.getQuery().toString());
+                } else {
+                    mSearchViewModel.initBusiness(newText, mPriceRangeEditText.getText().toString(), null);
+                }
 
                 mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {
                     mBusinessResponse = businessSearchResponseRepositoryResponse.getData();

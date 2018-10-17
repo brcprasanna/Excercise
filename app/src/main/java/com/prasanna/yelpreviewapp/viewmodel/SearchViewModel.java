@@ -2,7 +2,6 @@ package com.prasanna.yelpreviewapp.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.text.Editable;
 
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
@@ -26,8 +25,8 @@ public class SearchViewModel extends ViewModel {
         return mCategoryResponseLiveData;
     }
 
-    public void initBusiness(String filterText) {
-        mBusinessResponseLiveData = SearchRepository.getInstance().getBusiness(filterText);
+    public void initBusiness(String newText, String priceRange, String Categories) {
+        mBusinessResponseLiveData = SearchRepository.getInstance().getBusiness(newText, priceRange, Categories);
     }
 
     public LiveData<RepositoryResponse<BusinessSearchResponse>> getBusinessResponseLiveData() {

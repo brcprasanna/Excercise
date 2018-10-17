@@ -42,9 +42,16 @@ public class NetworkManager {
         });
     }
 
-    public void doGetBusinessSearchRequest(String filter, Class<BusinessSearchResponse> businessSearchResponseClass, final CallBackToView mCallback) {
+    public void doGetBusinessSearchRequest(String filter, String priceRange, String categories, Class<BusinessSearchResponse> businessSearchResponseClass, final CallBackToView mCallback) {
+        String url = "";
+
+        if (categories != null) {
+            url = AppConstants.BUSINESS_SEARCH_URL+"&term="+filter+"&price="+priceRange;
+        } else {
+            url = AppConstants.BUSINESS_SEARCH_URL+"&term="+filter+"&price="+priceRange+"&categories="+categories;
+        }
         Request request = new Request.Builder()
-                .url(AppConstants.BUSINESS_SEARCH_URL+"&term="+filter)
+                .url(url)
                 .addHeader("Authorization", "Bearer " + AppConstants.API_KEY)
                 .build();
 

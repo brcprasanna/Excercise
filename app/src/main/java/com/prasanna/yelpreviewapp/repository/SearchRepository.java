@@ -57,12 +57,12 @@ public class SearchRepository {
         return liveData;
     }
 
-    public LiveData<RepositoryResponse<BusinessSearchResponse>> getBusiness(String filterText) {
+    public LiveData<RepositoryResponse<BusinessSearchResponse>> getBusiness(String filterText, String priceRange, String categories) {
         final MutableLiveData<RepositoryResponse<BusinessSearchResponse>> liveData = new MutableLiveData();
         RepositoryResponse<BusinessSearchResponse> response = new RepositoryResponse<>();
         //Search View
         try {
-            DataManager.getInstance().getBusinessSearch(filterText, new CallBackToView() {
+            DataManager.getInstance().getBusinessSearch(filterText, priceRange, categories,  new CallBackToView() {
                 @Override
                 public void onSuccess(final String responseModel) {
                     BusinessSearchResponse businessSearchResponse = new Gson().fromJson(responseModel, BusinessSearchResponse.class);

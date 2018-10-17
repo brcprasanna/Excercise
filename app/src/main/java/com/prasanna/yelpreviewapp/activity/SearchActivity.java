@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.prasanna.yelpreviewapp.R;
 import com.prasanna.yelpreviewapp.adapter.CategoryListViewAdapter;
@@ -38,6 +40,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private MainListViewAdapter mMainListViewAdapter;
     private CategoryListViewAdapter mCategoryListViewAdapter;
+
+    private EditText mPriceRangeEditText;
 
 
     @Override
@@ -72,6 +76,8 @@ public class SearchActivity extends AppCompatActivity {
                 mListViewCategory.setVisibility(View.GONE);
             }
         });
+
+        mPriceRangeEditText = findViewById(R.id.edtPriceRange);
 
         mBusinessList = new ArrayList<>();
         mMainListViewAdapter = new MainListViewAdapter(this, R.layout.list_item_main, mBusinessList);
@@ -128,6 +134,12 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (mPriceRangeEditText.getText().length() > 0) {
+                    mSearchViewModel.validatePriceRange(mPriceRangeEditText.getText().toString());
+                    Toast.makeText(SearchActivity.this, getString(R.string.invalid_price_range), Toast.LENGTH_SHORT).show();
+                    //mPriceRangeEditText.requestFocus();
+                    return false;
+                }
                 if (newText.length() > 0) {
                     mListViewMain.setVisibility(View.VISIBLE);
                 } else {

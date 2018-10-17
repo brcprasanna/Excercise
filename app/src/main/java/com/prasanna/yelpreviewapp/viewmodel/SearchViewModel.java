@@ -2,6 +2,7 @@ package com.prasanna.yelpreviewapp.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.text.Editable;
 
 import com.prasanna.yelpreviewapp.model.BusinessSearchResponse;
 import com.prasanna.yelpreviewapp.model.category.CategoryResponse;
@@ -34,4 +35,11 @@ public class SearchViewModel extends ViewModel {
     }
 
 
+    public boolean validatePriceRange(String strRange) {
+        int range = Integer.parseInt(strRange);
+        if (range <= 0 && range >= 5) {
+            return false;
+        }
+        return true;
+    }
 }

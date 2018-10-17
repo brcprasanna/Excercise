@@ -1,7 +1,11 @@
 package com.prasanna.yelpreviewapp.activity;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity{
 
     private SearchView mSearchViewMain;
     private SearchView mSearchViewCategory;
@@ -130,6 +134,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //start list activity here
+                Intent intentBusinessActivity = new Intent(SearchActivity.this, BusinessListActivity.class);
+                startActivity(intentBusinessActivity);
                 return false;
             }
 
@@ -161,4 +167,5 @@ public class SearchActivity extends AppCompatActivity {
         });
 
     }
+
 }

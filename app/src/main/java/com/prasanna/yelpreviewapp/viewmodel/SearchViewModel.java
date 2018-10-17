@@ -36,7 +36,7 @@ public class SearchViewModel extends ViewModel {
 
     public boolean validatePriceRange(String strRange) {
         int range = Integer.parseInt(strRange);
-        if (range <= 0 && range >= 5) {
+        if (range <= 0 || range >= 5) {
             return false;
         }
         return true;

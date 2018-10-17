@@ -46,8 +46,8 @@ public class BusinessListActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        recyclerView = findViewById(R.id.recycler_view);
+        progressBar = findViewById(R.id.progress_bar);
     }
 
     private void initRecyclerView() {
@@ -98,7 +98,7 @@ public class BusinessListActivity extends AppCompatActivity {
                 try {
                     Thread.sleep(SIMULATED_LOADING_TIME_IN_MS);
                 } catch (InterruptedException e) {
-                    Log.e("MainActivity", e.getMessage());
+                    Log.e("BusinessListActivity", e.getMessage());
                 }
                 return null;
             }

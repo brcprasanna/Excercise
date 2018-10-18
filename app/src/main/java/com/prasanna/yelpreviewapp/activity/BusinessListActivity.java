@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ProgressBar;
 
 import com.prasanna.yelpreviewapp.R;
 import com.prasanna.yelpreviewapp.adapter.BusinessListAdapter;
@@ -19,19 +18,17 @@ import java.util.List;
 
 public class BusinessListActivity extends AppCompatActivity {
     private static final int LIMIT = 15;
-    private static final int NUMBER_OF_ITEMS = 100;
 
-    public RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
 
-    private List<Business> items;
+    private List<Business> mBusinessList;
 
-    private BusinessListViewModel mViewmodel;
+    private BusinessListViewModel mBusinessListViewModel;
     private String mSearchText;
     private String mPriceRangeText;
     private String mCategoryText;
     private BusinessSearchResponse mBusinessResponse;
 
-    private EndlessRecyclerViewScrollListener scrollListener;
     private BusinessListAdapter mAdapter;
 
     @Override
@@ -39,42 +36,43 @@ public class BusinessListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_list);
 
-        mViewmodel = ViewModelProviders.of(this).get(BusinessListViewModel.class);
+        mBusinessListViewModel = ViewModelProviders.of(this).get(BusinessListViewModel.class);
 
         mSearchText = getIntent().getStringExtra(AppConstants.INTENT_DATA_SEARCH_TEXT);
         mPriceRangeText = getIntent().getStringExtra(AppConstants.INTENT_DATA_PRICE_RANGE_TEXT);
         mCategoryText = getIntent().getStringExtra(AppConstants.INTENT_DATA_CATEGORY_TEXT);
 
-        recyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
 
-        mViewmodel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT, 0);
+        mBusinessListViewModel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT, 0);
 
-        mViewmodel.getBusinessResponseLiveData().observe(BusinessListActivity.this, businessSearchResponseRepositoryResponseBase -> {
-            mBusinessResponse = businessSearchResponseRepositoryResponseBase.getData();
-            if (mBusinessResponse != null) {
-                List<Business> businessList = mBusinessResponse.getBusinesses();
-                items = businessList;
+        mBusinessListViewModel.getBusinessResponseLiveData().observe(BusinessListActivity.this, businessSearchResponseRepositoryResponseBase -> {
+            if (businessSearchResponseRepositoryResponseBase != null) {
+                mBusinessResponse = businessSearchResponseRepositoryResponseBase.getData();
+                if (mBusinessResponse != null) {
+                    this.mBusinessList = mBusinessResponse.getBusinesses();
+                }
+                if (mBusinessList != null) {
+                    mAdapter = new BusinessListAdapter(mBusinessList);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+
+                int curSize = mAdapter.getItemCount();
+                mAdapter.notifyItemRangeInserted(curSize, mBusinessList.size() - 1);
             }
-            if (items != null) {
-                mAdapter = new BusinessListAdapter(items);
-                recyclerView.setAdapter(mAdapter);
-            }
-
-            int curSize = mAdapter.getItemCount();
-            mAdapter.notifyItemRangeInserted(curSize, items.size() - 1);
         });
 
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
         EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                mViewmodel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT, page);
+                mBusinessListViewModel.initBusiness(mSearchText, mPriceRangeText, mCategoryText, LIMIT, page);
             }
         };
-        recyclerView.addOnScrollListener(scrollListener);
+        mRecyclerView.addOnScrollListener(scrollListener);
 
 
     }

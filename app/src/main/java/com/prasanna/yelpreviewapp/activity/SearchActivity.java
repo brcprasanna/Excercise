@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -67,24 +66,18 @@ public class SearchActivity extends AppCompatActivity {
 
         mListViewMain = findViewById(R.id.listViewMain);
         mListViewMain.setVisibility(View.GONE);
-        mListViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Business business = (Business) mListViewMain.getItemAtPosition(i);
-                mSearchViewMain.setQuery(business.getName(), false);
-                mListViewMain.setVisibility(View.GONE);
-            }
+        mListViewMain.setOnItemClickListener((adapterView, view, i, l) -> {
+            Business business = (Business) mListViewMain.getItemAtPosition(i);
+            mSearchViewMain.setQuery(business.getName(), false);
+            mListViewMain.setVisibility(View.GONE);
         });
 
         mListViewCategory = findViewById(R.id.listViewCategory);
         mListViewCategory.setVisibility(View.GONE);
-        mListViewCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Category category = (Category) mListViewCategory.getItemAtPosition(i);
-                mSearchViewCategory.setQuery(category.getTitle(), false);
-                mListViewCategory.setVisibility(View.GONE);
-            }
+        mListViewCategory.setOnItemClickListener((adapterView, view, i, l) -> {
+            Category category = (Category) mListViewCategory.getItemAtPosition(i);
+            mSearchViewCategory.setQuery(category.getTitle(), false);
+            mListViewCategory.setVisibility(View.GONE);
         });
 
         mSpinnerRange = findViewById(R.id.spinnerRange);
@@ -128,12 +121,13 @@ public class SearchActivity extends AppCompatActivity {
                 mSearchViewModel.initBusiness(newText, mSpinnerRangeText, mSearchViewCategory.getQuery().toString());
 
                 mSearchViewModel.getBusinessResponseLiveData().observe(SearchActivity.this, businessSearchResponseRepositoryResponse -> {
-                    mBusinessResponse = businessSearchResponseRepositoryResponse.getData();
-                    if (mBusinessResponse != null) {
-                        List<Business> businessList = mBusinessResponse.getBusinesses();
-                        mBusinessList = businessList;
+                    if (businessSearchResponseRepositoryResponse != null) {
+                        mBusinessResponse = businessSearchResponseRepositoryResponse.getData();
+                        if (mBusinessResponse != null) {
+                            mBusinessList = mBusinessResponse.getBusinesses();
+                        }
+                        mMainListViewAdapter.setData(mBusinessList);
                     }
-                    mMainListViewAdapter.setData(mBusinessList);
                 });
                 return false;
             }
@@ -170,11 +164,13 @@ public class SearchActivity extends AppCompatActivity {
         mSearchViewModel.initCategory();
 
         mSearchViewModel.getCategoryResponseLiveData().observe(SearchActivity.this, searchRepositoryCategoryResponse -> {
-            mCategoryResponse = searchRepositoryCategoryResponse.getData();
-            if (mCategoryResponse != null) {
-                List<Category> categoryList = mCategoryResponse.getCategories();
-                if (categoryList != null) {
-                    mCategoryList = categoryList;
+            if (searchRepositoryCategoryResponse != null) {
+                mCategoryResponse = searchRepositoryCategoryResponse.getData();
+                if (mCategoryResponse != null) {
+                    List<Category> categoryList = mCategoryResponse.getCategories();
+                    if (categoryList != null) {
+                        mCategoryList = categoryList;
+                    }
                 }
             }
         });

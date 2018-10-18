@@ -17,6 +17,8 @@ import static com.prasanna.yelpreviewapp.utils.AppConstants.EMPTY;
 public class NetworkManager {
     //private CallBackToView mCallback;
 
+    //Added the timeout, due to timeout exception sometimes, it is working most of the time without that too!!!
+    //Need some analysis
     final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(5000, TimeUnit.SECONDS)
             .writeTimeout(5000, TimeUnit.SECONDS)

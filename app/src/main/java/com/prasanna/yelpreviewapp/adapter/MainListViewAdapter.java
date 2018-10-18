@@ -15,27 +15,27 @@ import java.util.List;
 
 public class MainListViewAdapter extends ArrayAdapter<Business> {
 
-    private List<Business> businessList;
+    private List<Business> mBusinessList;
 
     public MainListViewAdapter(Context context, int resource, List<Business> businessList) {
         super(context, resource, businessList);
-        this.businessList = businessList;
+        this.mBusinessList = businessList;
     }
 
     public int getCount() {
-        if (businessList != null) {
-            return businessList.size();
+        if (mBusinessList != null) {
+            return mBusinessList.size();
         } else {
             return 0;
         }
     }
 
     public Business getItem(int position) {
-        return businessList.get(position);
+        return mBusinessList.get(position);
     }
 
     public long getItemId(int position) {
-        return businessList.get(position).hashCode();
+        return mBusinessList.get(position).hashCode();
     }
 
     @NonNull
@@ -61,7 +61,7 @@ public class MainListViewAdapter extends ArrayAdapter<Business> {
     }
 
     public void setData(List<Business> businessList) {
-        this.businessList = businessList;
+        this.mBusinessList = businessList;
         notifyDataSetChanged();
     }
 }

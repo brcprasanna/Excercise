@@ -15,32 +15,32 @@ import java.util.List;
 
 public class CategoryListViewAdapter extends ArrayAdapter<Category> {
 
-    private List<Category> categoryList;
+    private List<Category> mCategoryList;
 
     public CategoryListViewAdapter(Context context, int resource, List<Category> categoryList) {
         super(context, resource, categoryList);
-        this.categoryList = categoryList;
+        this.mCategoryList = categoryList;
     }
 
     public int getCount() {
-        if (categoryList != null) {
-            return categoryList.size();
+        if (mCategoryList != null) {
+            return mCategoryList.size();
         } else {
             return 0;
         }
     }
 
     public Category getItem(int position) {
-        return categoryList.get(position);
+        return mCategoryList.get(position);
     }
 
     public long getItemId(int position) {
-        return categoryList.get(position).hashCode();
+        return mCategoryList.get(position).hashCode();
     }
 
     @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
 
         if (view == null) {
@@ -61,7 +61,7 @@ public class CategoryListViewAdapter extends ArrayAdapter<Category> {
     }
 
     public void setData(List<Category> categoryList) {
-        this.categoryList = categoryList;
+        this.mCategoryList = categoryList;
         notifyDataSetChanged();
     }
 }

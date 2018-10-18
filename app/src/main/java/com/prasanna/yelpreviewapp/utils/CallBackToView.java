@@ -5,7 +5,7 @@ package com.prasanna.yelpreviewapp.utils;
  */
 public interface CallBackToView {
     /**
-     * ill be Called for success callback
+     * will be Called for success callback
      *
      * @param responseModel
      */

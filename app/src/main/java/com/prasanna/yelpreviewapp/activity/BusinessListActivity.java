@@ -22,11 +22,8 @@ public class BusinessListActivity extends AppCompatActivity {
     private static final int NUMBER_OF_ITEMS = 100;
 
     public RecyclerView recyclerView;
-    public ProgressBar progressBar;
 
-    private LinearLayoutManager layoutManager;
     private List<Business> items;
-    private int offset;
 
     private BusinessListViewModel mViewmodel;
     private String mSearchText;

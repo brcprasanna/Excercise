@@ -103,8 +103,9 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //start list activity here
                 mListViewMain.setVisibility(View.GONE);
+                mListViewCategory.setVisibility(View.GONE);
+
                 Intent intentBusinessActivity = new Intent(SearchActivity.this, BusinessListActivity.class);
                 intentBusinessActivity.putExtra(AppConstants.INTENT_DATA_SEARCH_TEXT, mNewSearchText);
                 intentBusinessActivity.putExtra(AppConstants.INTENT_DATA_PRICE_RANGE_TEXT, mSpinnerRangeText);
